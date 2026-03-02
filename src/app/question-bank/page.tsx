@@ -12,6 +12,30 @@ export default function QuestionBankPage() {
   const [topicFilter, setTopicFilter] = useState("all");
   const [difficultyFilter, setDifficultyFilter] = useState("all");
 
+  // Delete state
+  const [deleteTarget, setDeleteTarget] = useState<{ id: string; questionId: string } | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteTarget) return;
+    setDeletingId(deleteTarget.id);
+    setDeleteError(null);
+    try {
+      const res = await fetch(`/api/questions/${deleteTarget.id}`, { method: "DELETE" });
+      if (res.status === 404) throw new Error("Question not found.");
+      if (!res.ok) throw new Error("Failed to delete question.");
+      setData((prev) =>
+        prev ? { ...prev, questions: prev.questions.filter((q) => q.id !== deleteTarget.id) } : prev
+      );
+      setDeleteTarget(null);
+    } catch (err) {
+      setDeleteError(err instanceof Error ? err.message : "Deletion failed.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   const fetchQuestions = useCallback(async () => {
     setLoading(true);
     try {
@@ -195,6 +219,13 @@ export default function QuestionBankPage() {
                       >
                         Reflections
                       </Link>
+                      <button
+                        onClick={() => { setDeleteError(null); setDeleteTarget({ id: q.id, questionId: q.questionId }); }}
+                        disabled={deletingId === q.id}
+                        className="text-xs font-medium text-red-600 hover:text-red-800 bg-red-50 hover:bg-red-100 px-2.5 py-1 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Delete
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -205,6 +236,41 @@ export default function QuestionBankPage() {
           <div className="px-4 py-3 bg-slate-50 border-t border-slate-100 text-xs text-slate-500">
             {data?.questions.length} question
             {data?.questions.length !== 1 ? "s" : ""} shown
+          </div>
+        </div>
+      )}
+
+      {/* Delete confirmation modal */}
+      {deleteTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full mx-4">
+            <h2 className="text-lg font-semibold text-slate-900 mb-2">Delete Question</h2>
+            <p className="text-sm text-slate-600 mb-1">
+              Permanently delete{" "}
+              <span className="font-mono font-semibold text-slate-800">{deleteTarget.questionId}</span>?
+            </p>
+            <p className="text-xs text-slate-400 mb-5">
+              All associated attempt records will also be deleted. This cannot be undone.
+            </p>
+            {deleteError && (
+              <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2 mb-4">{deleteError}</p>
+            )}
+            <div className="flex gap-3">
+              <button
+                onClick={handleDeleteConfirm}
+                disabled={deletingId !== null}
+                className="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 rounded-xl text-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {deletingId ? "Deleting…" : "Delete"}
+              </button>
+              <button
+                onClick={() => { setDeleteTarget(null); setDeleteError(null); }}
+                disabled={deletingId !== null}
+                className="flex-1 btn-secondary py-2 text-sm"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
