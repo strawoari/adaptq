@@ -11,6 +11,7 @@ A full-stack adaptive learning web app built with Next.js 14, Prisma, SQLite, Ty
 - **Recommendation Engine** — optimal-challenge questions tailored to skill level
 - **Dashboard** — skill cards, weakest topic, overall accuracy, recommendations
 - **Question Bank** — filterable table of all questions with stats
+- **Practice and Reflection** — practice with your stored questions and write reflections
 
 ---
 
@@ -73,7 +74,7 @@ Upload CSV files with the following headers:
 questionId,text,topic,difficulty,correct
 q1,Solve for x: 2x + 3 = 7,Algebra,3,true
 q2,Expand (x+2)(x-3),Algebra,4,false
-q3,Find P(A∪B) given P(A)=0.3,Probability,2,true
+q3,Find P(A∪B) given P(A)=0.3,Probability,2, 
 ```
 
 | Column | Type | Valid Values |
@@ -82,7 +83,7 @@ q3,Find P(A∪B) given P(A)=0.3,Probability,2,true
 | text | string | the question content |
 | topic | string | any non-empty string |
 | difficulty | integer | 1–5 |
-| correct | boolean | `true` or `false` |
+| correct | optional boolean | `true` or `false` or None |
 
 **Notes:**
 - `questionId` is your external identifier (e.g. `q1`, `alg-042`). The database stores it as a unique lookup key; the primary key used internally is a UUID.
