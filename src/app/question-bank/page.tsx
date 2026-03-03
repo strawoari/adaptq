@@ -57,7 +57,7 @@ export default function QuestionBankPage() {
           <select
             value={topicFilter}
             onChange={(e) => setTopicFilter(e.target.value)}
-            className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="border border-slate-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-400"
           >
             <option value="all">All Topics</option>
             {data?.topics.map((t) => (
@@ -92,7 +92,7 @@ export default function QuestionBankPage() {
               setTopicFilter("all");
               setDifficultyFilter("all");
             }}
-            className="text-sm text-blue-600 hover:underline"
+            className="text-sm text-emerald-700 hover:underline"
           >
             Clear filters
           </button>

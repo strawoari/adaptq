@@ -1,4 +1,4 @@
-# AdaptIQ — Adaptive Student Question Recommender
+# AdaptQ — Adaptive Student Question Recommender
 
 A full-stack adaptive learning web app built with Next.js 14, Prisma, SQLite, TypeScript, and Tailwind CSS.
 

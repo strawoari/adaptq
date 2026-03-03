@@ -23,7 +23,7 @@ export default function RecommendationCard({ question }: RecommendationCardProps
           <span className="font-mono text-xs text-slate-400">
             {question.questionId}
           </span>
-          <span className="badge bg-blue-50 text-blue-700">{question.topic}</span>
+          <span className="badge bg-yellow-50 text-lime-600">{question.topic}</span>
         </div>
         <p className="text-slate-800 font-medium line-clamp-2">
           {question.question_content}
@@ -56,7 +56,7 @@ export default function RecommendationCard({ question }: RecommendationCardProps
         </div>
         <Link
           href={`/questions/${question.id}`}
-          className="text-xs font-semibold text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+          className="text-xs font-semibold text-emerald-600 hover:text-green-800 bg-green-50 hover:bg-green-100 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
         >
           Attempt →
         </Link>

@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AdaptIQ – Adaptive Learning Platform",
+  title: "AdaptQ – Adaptive Learning Platform",
   description: "AI-powered adaptive question recommender for students",
 };
 

@@ -4,8 +4,8 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[calc(100vh-80px)] text-center px-4">
       <div className="max-w-2xl">
-        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
-          <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+        <div className="inline-flex items-center gap-2 bg-green-50 text-green-700 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
           Adaptive Learning and Reflection
         </div>
 
