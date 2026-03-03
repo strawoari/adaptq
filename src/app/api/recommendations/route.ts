@@ -34,7 +34,7 @@ export const runtime = "nodejs";
 
 export async function GET(): Promise<NextResponse> {
   try {
-    const oneDayAgo = new Date(Date.now() - 30 * 60 * 1000);
+    const oneDayAgo = new Date(Date.now() - 10 * 60 * 1000);
 
     const [recentAttempts, topicTotals, topicCorrect] = await Promise.all([
       prisma.studentAttempt.findMany({
