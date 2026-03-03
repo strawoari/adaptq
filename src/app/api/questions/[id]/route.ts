@@ -55,34 +55,3 @@ export async function GET(
     );
   }
 }
-
-export async function DELETE(
-  _request: NextRequest,
-  { params }: { params: { id: string } }
-): Promise<NextResponse> {
-  try {
-    const question = await prisma.question.findUnique({
-      where: { id: params.id },
-    });
-
-    if (!question) {
-      return NextResponse.json({ error: "Question not found" }, { status: 404 });
-    }
-
-    // Delete all related attempts first (no cascade defined in schema).
-    await prisma.studentAttempt.deleteMany({
-      where: { questionId: params.id },
-    });
-
-    await prisma.question.delete({
-      where: { id: params.id },
-    });
-
-    return new NextResponse(null, { status: 204 });
-  } catch (error) {
-    return NextResponse.json(
-      { error: `Failed to delete question: ${error instanceof Error ? error.message : "Unknown error"}` },
-      { status: 500 }
-    );
-  }
-}

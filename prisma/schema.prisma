@@ -33,4 +33,6 @@ model StudentAttempt {
   correct         Boolean
   reflection_note String   @default("")
   createdAt       DateTime @default(now())
+
+  @@index([createdAt])
 }

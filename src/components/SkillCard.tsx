@@ -41,7 +41,7 @@ export default function SkillCard({
         </div>
         <span className="text-2xl font-bold text-slate-700">
           {skill.toFixed(1)}
-          <span className="text-sm font-normal text-slate-400">/5</span>
+          <span className="text-sm font-normal text-slate-400">/10</span>
         </span>
       </div>
 
